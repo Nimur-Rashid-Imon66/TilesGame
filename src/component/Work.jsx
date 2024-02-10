@@ -93,11 +93,14 @@ const Work = () => {
             }
         },
     ]);
-    const addNewData = () => {
-        let newData = data.map((item) => {
-            
-        })
-    }
+    // const addNewData = (rs = 1, cs = 2) => {
+    //     let newData = data.map((item) => {
+    //         item.pos.row++;
+    //     })
+    //     newData.push({ id: data.length + 1, size: { rowspan: rs, colspan: cs }, pos: { row: 0, col: 0 } })
+    //     setData(newData);
+    // }
+    // addNewData();
     const updateData = () => {
            for(let idx of data)
            {      
@@ -164,9 +167,14 @@ const Work = () => {
                                     className="bg-gray-600 text-sm" > remove
                                 </button>
                             </div>
+
                         </div>
                     )})
             }
+                {/* <button
+                    className="absolute top-0 right-0   bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    onClick={() => { addNewData(1,2) }}>Add item
+                </button> */}
         </div>
     );
 };

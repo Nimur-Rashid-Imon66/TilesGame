@@ -1,4 +1,4 @@
-import Work from "./component/work"
+import Work from "./component/Work"
 
 
 function App() {
