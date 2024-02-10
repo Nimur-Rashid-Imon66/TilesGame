@@ -3,12 +3,16 @@ import { useState } from 'react';
 let gap = {};
 const Work = () => {
     
-    let [data, setData] = useState([
+    let [data, setData] = useState(
+        [
             {
                 id: 1,
                 size: {
                     rowspan: 1,
                     colspan: 1
+                },
+                data: {
+                    text: "text 1",
                 },
                 pos: {
                     row: 0,
@@ -21,6 +25,9 @@ const Work = () => {
                     rowspan: 1,
                     colspan: 1
                 },
+                data: {
+                    text: "text 2",
+                },
                 pos: {
                     row: 0,
                     col: 1
@@ -31,6 +38,9 @@ const Work = () => {
                 size: {
                     rowspan: 1,
                     colspan: 1
+                },
+                data: {
+                    text: "text 3",
                 },
                 pos: {
                     row: 1,
@@ -43,56 +53,147 @@ const Work = () => {
                     rowspan: 1,
                     colspan: 1
                 },
+                data: {
+                    text: "text 4",
+                },
                 pos: {
                     row: 1,
                     col: 1
                 }
-        },
-    //     {
-    //         id: 2445,
-    //         size: {
-    //             rowspan: 1,
-    //             colspan: 1
-    //         },
-    //         pos: {
-    //             row: 2,
-    //             col: 0
-    //         }
-    // },
+            },
             {
                 id: 5,
                 size: {
-                    rowspan: 1,
+                    rowspan: 2,
                     colspan: 2
+                },
+                data: {
+                    text: "text 5",
                 },
                 pos: {
                     row: 2,
                     col: 0
                 }
-        },
-        {
-            id: 6,
-            size: {
-                rowspan: 2,
-                colspan: 1
             },
-            pos: {
-                row: 3,
-                col: 0
-            }
-        },
-        {
-            id: 7,
-            size: {
-                rowspan: 2,
-                colspan: 1
+            {
+                id: 6,
+                size: {
+                    rowspan: 1,
+                    colspan: 1
+                },
+                data: {
+                    text: "text 6",
+                },
+                pos: {
+                    row: 4,
+                    col: 0
+                }
             },
-            pos: {
-                row: 3,
-                col: 1
-            }
-        },
-    ]);
+            {
+                id: 7,
+                size: {
+                    rowspan: 1,
+                    colspan: 1
+                },
+                data: {
+                    text: "text 7",
+                },
+                pos: {
+                    row: 4,
+                    col: 1
+                }
+            },
+        ]);
+        // [
+    //         {
+    //             id: 1,
+    //             size: {
+    //                 rowspan: 1,
+    //                 colspan: 1
+    //             },
+    //             pos: {
+    //                 row: 0,
+    //                 col: 0
+    //             }
+    //         },
+    //         {
+    //             id: 2,
+    //             size: {
+    //                 rowspan: 1,
+    //                 colspan: 1
+    //             },
+    //             pos: {
+    //                 row: 0,
+    //                 col: 1
+    //             }
+    //         },
+    //         {
+    //             id: 3,
+    //             size: {
+    //                 rowspan: 1,
+    //                 colspan: 1
+    //             },
+    //             pos: {
+    //                 row: 1,
+    //                 col: 0
+    //             }
+    //         },
+    //         {
+    //             id: 4,
+    //             size: {
+    //                 rowspan: 1,
+    //                 colspan: 1
+    //             },
+    //             pos: {
+    //                 row: 1,
+    //                 col: 1
+    //             }
+    //     },
+    // //     {
+    // //         id: 2445,
+    // //         size: {
+    // //             rowspan: 1,
+    // //             colspan: 1
+    // //         },
+    // //         pos: {
+    // //             row: 2,
+    // //             col: 0
+    // //         }
+    // // },
+    //         {
+    //             id: 5,
+    //             size: {
+    //                 rowspan: 1,
+    //                 colspan: 2
+    //             },
+    //             pos: {
+    //                 row: 2,
+    //                 col: 0
+    //             }
+    //     },
+    //     {
+    //         id: 6,
+    //         size: {
+    //             rowspan: 2,
+    //             colspan: 1
+    //         },
+    //         pos: {
+    //             row: 3,
+    //             col: 0
+    //         }
+    //     },
+    //     {
+    //         id: 7,
+    //         size: {
+    //             rowspan: 2,
+    //             colspan: 1
+    //         },
+    //         pos: {
+    //             row: 3,
+    //             col: 1
+    //         }
+    //     },
+    // ]);
     // const addNewData = (rs = 1, cs = 2) => {
     //     let newData = data.map((item) => {
     //         item.pos.row++;
@@ -121,30 +222,39 @@ const Work = () => {
                    let key = (String(row)+','+String(col+j))
                    delete gap[key]
                }
-               makeGap(idx);
+               makeGap(idx,1);
                idx.pos.row = row;
         }
     }
 
-    const makeGap = (cell) => {
+    const makeGap = (cell, f) => {
         let { row, col } = cell.pos
         let { rowspan, colspan } = cell.size
         if (row < 0 || col < 0) return;
-        for (let i = 0; i < rowspan; i++)
-        {
+        if (f == 0) {
+            for (let i = 0; i < rowspan; i++) {
+                for (let j = 0; j < colspan; j++) {
+                    let key = (String(row + i) + ',' + String(col + j))
+                    gap[key] = 1;
+                }
+            }
+        }
+        if (f){
             for (let j = 0; j < colspan; j++)
             {
-                let key = (String(row+i)+','+String(col+j))
+                let key = (String(row+1)+','+String(col+j))
                 gap[key]=1; 
             }
         }
+        console.log('gap',gap)
         updateData();
     }
 
     const handleRemove = (id, cell) => {
         let newData = data.filter(item => (item.id !== id))
         setData(newData)
-        makeGap(cell)
+        makeGap(cell,0)
+        console.log(data);
         // while (gap.length) update();         
     }
     return (
